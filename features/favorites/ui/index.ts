@@ -1,0 +1,2 @@
+// Favorites UI exports
+export {};
