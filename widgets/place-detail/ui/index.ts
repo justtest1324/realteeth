@@ -1,0 +1,1 @@
+export { PlaceDetailWidget } from './PlaceDetailWidget';
