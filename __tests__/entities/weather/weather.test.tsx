@@ -1,10 +1,12 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { renderHook, waitFor } from '@testing-library/react';
+import { render, screen, renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useWeather } from '@/entities/weather/model/useWeather';
 import { transformWeatherResponse } from '@/entities/weather/lib/transform';
 import { computeTodayMinMax } from '@/entities/weather/lib/compute';
-import type { OpenWeatherResponse } from '@/entities/weather/types';
+import { WeatherCard } from '@/entities/weather/ui/WeatherCard';
+import { ERROR_MESSAGES } from '@/shared/constants/messages';
+import type { OpenWeatherResponse, WeatherData } from '@/entities/weather/types';
 
 // Wrapper for React Query
 function createWrapper() {
@@ -216,6 +218,50 @@ describe('Weather Entity', () => {
       });
 
       expect(fetchSpy).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('WeatherCard UI', () => {
+    it('should display "해당 장소의 정보가 제공되지 않습니다" when no weather data', () => {
+      render(<WeatherCard weather={undefined} isLoading={false} noData={true} />);
+
+      expect(screen.getByText(ERROR_MESSAGES.NO_DATA)).toBeInTheDocument();
+    });
+
+    it('should display loading skeleton when isLoading is true', () => {
+      render(<WeatherCard weather={undefined} isLoading={true} />);
+
+      // Should not show error message while loading
+      expect(screen.queryByText(ERROR_MESSAGES.NO_DATA)).not.toBeInTheDocument();
+    });
+
+    it('should display weather data when available', () => {
+      const mockWeather: WeatherData = {
+        current: {
+          temp: 15.5,
+          description: 'clear sky',
+          icon: '01d',
+        },
+        today: {
+          min: 10,
+          max: 20,
+        },
+        hourly: [],
+      };
+
+      render(<WeatherCard weather={mockWeather} isLoading={false} />);
+
+      // Check current temperature is displayed
+      expect(screen.getByText('16°')).toBeInTheDocument(); // Math.round(15.5)
+      expect(screen.getByText('clear sky')).toBeInTheDocument();
+      expect(screen.getByText('10°')).toBeInTheDocument(); // min
+      expect(screen.getByText('20°')).toBeInTheDocument(); // max
+    });
+
+    it('should display network error message when error occurs', () => {
+      render(<WeatherCard weather={undefined} isLoading={false} error={new Error('Network error')} />);
+
+      expect(screen.getByText(ERROR_MESSAGES.NETWORK_ERROR)).toBeInTheDocument();
     });
   });
 });
