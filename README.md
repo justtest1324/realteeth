@@ -129,12 +129,10 @@ Import 규칙: shared → entities → features → widgets → app
 │
 ├── entities/                     # Read 레이어
 │   ├── location/                 # 위치/지역 관련
-│   │   ├── api/                  # API 호출
-│   │   ├── lib/                  # 유틸 (검색, 파싱)
+│   │   ├── lib/                  # 유틸 (검색, 파싱, 로마자 변환)
 │   │   ├── model/                # 훅 (useCurrentLocation, useGeocode)
 │   │   └── types/
 │   └── weather/                  # 날씨 관련
-│       ├── api/
 │       ├── lib/                  # 변환, 계산 함수
 │       ├── model/                # useWeather 훅
 │       ├── types/
@@ -143,10 +141,8 @@ Import 규칙: shared → entities → features → widgets → app
 ├── features/                     # CUD 레이어
 │   ├── favorites/                # 즐겨찾기 CRUD
 │   │   ├── model/                # Zustand store, useFavorites
-│   │   ├── types/
-│   │   └── ui/
+│   │   └── types/
 │   └── location-search/          # 검색 기능
-│       ├── model/
 │       └── ui/                   # LocationSearchInput
 │
 ├── widgets/                      # 화면 조합 레이어
