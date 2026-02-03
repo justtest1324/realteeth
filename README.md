@@ -9,7 +9,7 @@
 `.env.local` 파일을 생성하고 다음 환경 변수를 설정하세요:
 
 ```bash
-OPENWEATHER_API_KEY=your_openweathermap_api_key
+OPENWEATHERMAP_API_KEY=your_openweathermap_api_key
 ```
 
 [OpenWeatherMap](https://openweathermap.org/api)에서 무료 API 키를 발급받을 수 있습니다.
