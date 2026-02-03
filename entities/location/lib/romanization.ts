@@ -308,17 +308,3 @@ export const countyRomanization: Record<string, string> = {
   '포항시남구': 'Pohang',
   '포항시북구': 'Pohang',
 };
-
-/**
- * Get romanized name for a province
- */
-export function romanizeProvince(name: string): string | undefined {
-  return provinceRomanization[name];
-}
-
-/**
- * Get romanized name for a county/city
- */
-export function romanizeCounty(name: string): string | undefined {
-  return countyRomanization[name];
-}
