@@ -12,6 +12,7 @@ export default async function PlacePage({ params }: PlacePageProps) {
 }
 
 export function generateMetadata({ params }: PlacePageProps) {
+  void params; // Required by Next.js signature; title is static
   return {
     title: '날씨 상세',
   };

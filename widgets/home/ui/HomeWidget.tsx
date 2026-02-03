@@ -3,7 +3,7 @@
 import * as React from 'react';
 import { useRouter } from 'next/navigation';
 import { MapPin, Search } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/shared/ui/card';
+import { Card, CardContent } from '@/shared/ui/card';
 import { Skeleton } from '@/shared/ui/skeleton';
 import { Button } from '@/shared/ui/button';
 import { ERROR_MESSAGES } from '@/shared/constants/messages';

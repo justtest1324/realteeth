@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useFavoritesStore } from './store';
+import { useEffect, useState } from "react";
+import { useFavoritesStore } from "./store";
 
 /**
  * Convenience hook for using favorites store with SSR hydration handling
@@ -15,7 +15,7 @@ export function useFavorites() {
   const clearAll = useFavoritesStore((state) => state.clearAll);
 
   useEffect(() => {
-    setIsHydrated(true);
+    queueMicrotask(() => setIsHydrated(true));
   }, []);
 
   return {
